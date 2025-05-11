@@ -1,10 +1,11 @@
 class BeersController < ApplicationController
   before_action :set_beer, only: %i[ show edit update destroy ]
+  before_action :set_breweries, only: %i[ new edit create update ]
 
   # GET /beers or /beers.json
   def index
     @beers = Beer.all
-      render :index  
+    render :index  
   end
 
   # GET /beers/1 or /beers/1.json
@@ -14,10 +15,14 @@ class BeersController < ApplicationController
   # GET /beers/new
   def new
     @beer = Beer.new
+    @breweries = Brewery.all
+    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Low alcohol"]
   end
 
   # GET /beers/1/edit
   def edit
+    @breweries = Brewery.all
+    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Lowalcohol"]
   end
 
   # POST /beers or /beers.json
@@ -26,7 +31,7 @@ class BeersController < ApplicationController
 
     respond_to do |format|
       if @beer.save
-        format.html { redirect_to @beer, notice: "Beer was successfully created." }
+        format.html { redirect_to beers_path, notice: "Beer was successfully created." }
         format.json { render :show, status: :created, location: @beer }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -61,11 +66,16 @@ class BeersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_beer
-      @beer = Beer.find(params.expect(:id))
+      @beer = Beer.find(params[:id])  # Fixed the typo from 'expect' to ':id'
+    end
+
+    # Set up breweries for dropdown list
+    def set_breweries
+      @breweries = Brewery.all
     end
 
     # Only allow a list of trusted parameters through.
     def beer_params
-      params.expect(beer: [ :name, :style, :brewery_id ])
+      params.require(:beer).permit(:name, :style, :brewery_id)  # Fixed 'expect' to 'require' and array to .permit()
     end
 end

@@ -1,3 +1,10 @@
 class Beer < ApplicationRecord
-      belongs_to :brewery
+  belongs_to :brewery
+  has_many :ratings
+  def to_s
+    "#{name} (#{brewery.name})"
+  end
+  def average_rating
+    ratings.reduce(0.0) { |sum, rating| sum + rating.score } / ratings.count
+  end
 end

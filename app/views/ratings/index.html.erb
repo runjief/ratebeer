@@ -1,0 +1,9 @@
+<h2>List of ratings</h2>
+
+<p>Number of ratings: <%= @ratings.count %></p>
+
+<ul>
+  <%= render @ratings %>
+</ul>
+
+<p><%= link_to "New rating", ratings_new_path %></p>
