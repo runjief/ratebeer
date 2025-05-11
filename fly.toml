@@ -1,0 +1,29 @@
+# fly.toml app configuration file generated for ratebeer-sparkling-bird-9588 on 2025-05-11T16:49:11Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'ratebeer-sparkling-bird-9588'
+primary_region = 'arn'
+console_command = '/rails/bin/rails console'
+
+[build]
+
+[env]
+  PORT = '8080'
+
+[processes]
+  app = './bin/rake litestream:run ./bin/rails server'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
