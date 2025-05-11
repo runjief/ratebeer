@@ -3,10 +3,13 @@ Rails.application.routes.draw do
   resources :breweries
   root 'breweries#index'
   get 'all_beers', to: 'beers#index'
-  get 'ratings', to: 'ratings#index'
-  get 'ratings/new', to:'ratings#new'
+  # get 'ratings', to: 'ratings#index'
+  # get 'ratings/new', to:'ratings#new'
 
-  post 'ratings', to: 'ratings#create'
+  # post 'ratings', to: 'ratings#create'
+
+  resources :ratings, only: [:index, :new, :create, :destroy]
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

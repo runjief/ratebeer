@@ -1,6 +1,6 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: %i[ show edit update destroy ]
-
+  before_action :authenticate, only: [:destroy]
   # GET /breweries or /breweries.json
   def index
     @breweries = Brewery.all
@@ -67,4 +67,13 @@ class BreweriesController < ApplicationController
     def brewery_params
       params.expect(brewery: [ :name, :year ])
     end
+
+
+  def authenticate
+    admin_accounts = { "pekka" => "beer", "arto" => "foobar", "matti" => "ittam", "vilma" => "kangas" }
+
+    authenticate_or_request_with_http_basic do |username, password|
+      admin_accounts[username] == password
+    end
+  end
 end
