@@ -36,12 +36,11 @@ class BeersController < ApplicationController
       else
         @breweries = Brewery.all
         @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Lowalcohol"]
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new }
         format.json { render json: @beer.errors, status: :unprocessable_entity }
       end
     end
   end
-
   # PATCH/PUT /beers/1 or /beers/1.json
   def update
     respond_to do |format|

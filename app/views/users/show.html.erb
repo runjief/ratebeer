@@ -22,7 +22,18 @@
     <% end %>
   </ul>
 <% end %>
-
+<% if @user.beer_clubs.any? %>
+  <h4>Member of</h4>
+  <ul>
+    <% @user.beer_clubs.each do |club| %>
+      <li>
+        <%= link_to club.name, club %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Not a member of any club</p>
+<% end %>
 <div>
   <%= link_to "Edit this user", edit_user_path(@user) %> |
   <%= link_to "Back to users", users_path %>

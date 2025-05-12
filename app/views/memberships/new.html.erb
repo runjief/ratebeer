@@ -1,0 +1,11 @@
+<h1>Join a beer club</h1>
+
+<% if @beer_clubs.empty? %>
+  <p>You already belong to all clubs!</p>
+<% else %>
+  <%= render "form", membership: @membership %>
+<% end %>
+
+<div>
+  <%= link_to "Back to clubs", beer_clubs_path %>
+</div>
