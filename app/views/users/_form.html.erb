@@ -2,7 +2,6 @@
   <% if user.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
       <ul>
         <% user.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,10 +10,18 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :username, style: "display: block" %>
-    <%= form.text_field :username %>
-  </div>
+  <% if user.new_record? %>
+    <div>
+      <%= form.label :username, style: "display: block" %>
+      <%= form.text_field :username %>
+    </div>
+  <% else %>
+    <div>
+      <strong>Username:</strong>
+      <%= user.username %>
+    </div>
+  <% end %>
+
   <div>
     <%= form.label :password, style: "display: block"%>
     <%= form.password_field :password %>
@@ -24,6 +31,7 @@
     <%= form.label :password_confirmation, style: "display: block"%>
     <%= form.password_field :password_confirmation %>
   </div>
+
   <div>
     <%= form.submit %>
   </div>
