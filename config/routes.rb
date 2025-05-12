@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :users
   resources :beers
   resources :breweries
+  resources :memberships
+  resources :beer_clubs
   root "breweries#index"
   get "all_beers", to: "beers#index"
   get 'signup', to: 'users#new', as: :signup
