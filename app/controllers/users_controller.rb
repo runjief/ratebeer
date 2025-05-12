@@ -37,8 +37,8 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1 or /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: "User was successfully updated." }
+      if current_user == @user && @user.update(user_params)
+        format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,11 +49,21 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    @user.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to users_path, status: :see_other, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
+    if current_user == @user
+      @user.destroy
+      
+      # Clear the session for the destroyed user
+      session[:user_id] = nil
+      
+      respond_to do |format|
+        format.html { redirect_to users_path, notice: "User was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to users_path, notice: "You can only delete your own user account!" }
+        format.json { head :forbidden }
+      end
     end
   end
 

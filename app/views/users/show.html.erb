@@ -14,14 +14,14 @@
   <ul>
     <% @user.ratings.each do |rating| %>
       <li>
-        <%= rating %> 
-        <%= button_to 'delete', rating_path(rating), 
-                      method: :delete, 
-                      data: { turbo_confirm: 'Are you sure?' } %>
+        <%= rating %>
+        <% if @user == current_user %>
+          <%= link_to "Delete", rating, data: {turbo_method: :delete} %>
+        <% end %>
       </li>
     <% end %>
   </ul>
-<% end %>
+  <% end %>
 <% if @user.beer_clubs.any? %>
   <h4>Member of</h4>
   <ul>
