@@ -1,6 +1,27 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @user %>
+<h1>Username:</h1>
+<p><%= @user.username %></p>
+<% if @user.ratings.empty? %>
+  <p>User has not made any ratings yet!</p>
+<% else %>
+  <p>
+    Has made <%= pluralize(@user.ratings.count, 'rating') %>, 
+    average rating <%= @user.average_rating.round(1) %>
+  </p>
+
+  <h4>Ratings</h4>
+  <ul>
+    <% @user.ratings.each do |rating| %>
+      <li>
+        <%= rating %> 
+        <%= button_to 'delete', rating_path(rating), 
+                      method: :delete, 
+                      data: { turbo_confirm: 'Are you sure?' } %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
 
 <div>
   <%= link_to "Edit this user", edit_user_path(@user) %> |

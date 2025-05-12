@@ -6,11 +6,18 @@
   <% @ratings.each do |rating| %>
     <li>
       <%= render rating %> 
-      <%= button_to 'delete', rating, 
-                    method: :delete, 
-                    data: { turbo_confirm: "Are you sure you want to delete rating for #{rating.beer.name}?" } %>
+      <% if current_user && current_user == rating.user %>
+        <%= button_to 'delete', rating, 
+                      method: :delete, 
+                      data: { turbo_confirm: "Are you sure you want to delete rating for #{rating.beer.name}?" } %>
+      <% end %>
+      <% if rating.user %>
+        <%= link_to rating.user.username, user_path(rating.user) %>
+      <% else %>
+        <span>anonymous</span>
+      <% end %>
     </li>
   <% end %>
 </ul>
 
-<p><%= link_to "New rating", new_rating_path %></p>
+<p><%= link_to "New rating", new_rating_path if current_user %></p>
