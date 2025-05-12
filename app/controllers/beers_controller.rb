@@ -5,7 +5,7 @@ class BeersController < ApplicationController
   # GET /beers or /beers.json
   def index
     @beers = Beer.all
-    render :index  
+    render :index
   end
 
   # GET /beers/1 or /beers/1.json
@@ -16,13 +16,13 @@ class BeersController < ApplicationController
   def new
     @beer = Beer.new
     @breweries = Brewery.all
-    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Low alcohol"]
+    @styles = [ "Weizen", "Lager", "Pale ale", "IPA", "Porter", "Low alcohol" ]
   end
 
   # GET /beers/1/edit
   def edit
     @breweries = Brewery.all
-    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Lowalcohol"]
+    @styles = [ "Weizen", "Lager", "Pale ale", "IPA", "Porter", "Lowalcohol" ]
   end
 
   # POST /beers or /beers.json

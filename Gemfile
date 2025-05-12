@@ -62,11 +62,11 @@ group :test do
   gem "selenium-webdriver"
 end
 group :development, :test do
-  gem 'sqlite3'
+  gem "sqlite3"
 end
 
 group :production do
-   gem 'pg'
+   gem "pg"
 end
 gem "dockerfile-rails", ">= 1.7", group: :development
 
@@ -74,5 +74,5 @@ gem "litestream", "~> 0.12.0"
 
 gem "aws-sdk-s3", "~> 1.185", require: false
 group :development, :test do
-  gem 'pry-byebug'
+  gem "pry-byebug"
 end

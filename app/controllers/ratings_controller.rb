@@ -15,5 +15,4 @@ class RatingsController < ApplicationController
     rating.delete
     redirect_to ratings_path
   end
-
 end
