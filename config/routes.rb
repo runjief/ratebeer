@@ -8,10 +8,10 @@ Rails.application.routes.draw do
   resources :beer_clubs
   root "breweries#index"
   get "all_beers", to: "beers#index"
-  get 'signup', to: 'users#new', as: :signup
-  get 'signin', to: 'sessions#new', as: 'signin'
-  delete 'signout', to: 'sessions#destroy', as: 'signout'
-  resource :session, only: [:new, :create, :destroy]
+  get "signup", to: "users#new", as: :signup
+  get "signin", to: "sessions#new", as: "signin"
+  delete "signout", to: "sessions#destroy", as: "signout"
+  resource :session, only: [ :new, :create, :destroy ]
   # get 'ratings', to: 'ratings#index'
   # get 'ratings/new', to:'ratings#new'
 

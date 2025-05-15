@@ -38,10 +38,10 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if user_params[:username].nil? and @user == current_user and @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: 'User was successfully updated.' }
+        format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit', status: :unprocessable_entity }
+        format.html { render action: "edit", status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -51,10 +51,10 @@ class UsersController < ApplicationController
   def destroy
     if current_user == @user
       @user.destroy
-      
+
       # Clear the session for the destroyed user
       session[:user_id] = nil
-      
+
       respond_to do |format|
         format.html { redirect_to users_path, notice: "User was successfully destroyed." }
         format.json { head :no_content }
@@ -73,7 +73,7 @@ class UsersController < ApplicationController
       @user = User.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
+  # Only allow a list of trusted parameters through.
   def user_params
     if @user && !@user.new_record?
       params.require(:user).permit(:password, :password_confirmation)

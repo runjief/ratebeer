@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def new
-      # render the signing up page
+    # render the signing up page
   end
 
   def create

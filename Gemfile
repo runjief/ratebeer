@@ -49,6 +49,7 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem "rspec-rails", "~> 6.0.0"
 end
 
 group :development do
@@ -76,4 +77,4 @@ gem "aws-sdk-s3", "~> 1.185", require: false
 group :development, :test do
   gem "pry-byebug"
 end
-gem 'bcrypt', '~> 3.1.7'
+gem "bcrypt", "~> 3.1.7"
