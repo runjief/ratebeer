@@ -26,9 +26,9 @@ describe "User" do
     fill_in('user_password', with: 'Secret55')
     fill_in('user_password_confirmation', with: 'Secret55')
 
-    expect{
+    expect {
         click_button('Create User')
-    }.to change{User.count}.by(1)
+    }.to change { User.count }.by(1)
     end
   end
 
@@ -39,50 +39,50 @@ describe "User" do
     let!(:beer1) { FactoryBot.create(:beer, name: "Beer1", brewery: brewery) }
     let!(:beer2) { FactoryBot.create(:beer, name: "Beer2", brewery: brewery) }
     let!(:beer3) { FactoryBot.create(:beer, name: "Beer3", brewery: brewery) }
-    
+
     before :each do
       FactoryBot.create(:rating, score: 10, beer: beer1, user: user1)
       FactoryBot.create(:rating, score: 15, beer: beer2, user: user1)
       FactoryBot.create(:rating, score: 20, beer: beer3, user: user2)
-      
+
       sign_in(username: "Pekka", password: "Foobar1")
     end
-    
+
     it "shows user's own ratings on their page" do
       visit user_path(user1)
-      
+
       # save_and_open_page
-      
+
       expect(page).to have_content "Beer1 10"
       expect(page).to have_content "Beer2 15"
-      
+
       expect(page).not_to have_content "Beer3 20"
-      
+
       expect(page).to have_content "Has made 2 ratings"
     end
-    
+
     it "doesn't show other users' ratings on own page" do
       visit user_path(user2)
-      
+
       expect(page).to have_content "Beer3 20"
-      
+
       expect(page).not_to have_content "Beer1 10"
       expect(page).not_to have_content "Beer2 15"
-      
-      expect(page).to have_content "Has made 1 rating"  
+
+      expect(page).to have_content "Has made 1 rating"
     end
 
 
     it "allows user to delete their own rating" do
         visit user_path(user1)
-        
+
         expect(user1.ratings.count).to eq(2)
-        expect{
+        expect {
           find('li', text: 'Beer1').click_link('Delete')
-        }.to change{Rating.count}.by(-1)
-        
+        }.to change { Rating.count }.by(-1)
+
         expect(page).not_to have_content("Beer1 10")
-        
+
         expect(page).to have_content("Has made 1 rating")
     end
 
@@ -93,31 +93,29 @@ describe "User" do
         let!(:beer1) { FactoryBot.create(:beer, name: "Beer1", style: "IPA", brewery: brewery1) }
         let!(:beer2) { FactoryBot.create(:beer, name: "Beer2", style: "Lager", brewery: brewery1) }
         let!(:beer3) { FactoryBot.create(:beer, name: "Beer3", style: "IPA", brewery: brewery2) }
-        
+
         before :each do
-            FactoryBot.create(:rating, score: 15, beer: beer1, user: user)  
-            FactoryBot.create(:rating, score: 10, beer: beer2, user: user)  
-            FactoryBot.create(:rating, score: 20, beer: beer3, user: user)  
-            
+            FactoryBot.create(:rating, score: 15, beer: beer1, user: user)
+            FactoryBot.create(:rating, score: 10, beer: beer2, user: user)
+            FactoryBot.create(:rating, score: 20, beer: beer3, user: user)
+
             sign_in(username: "Pekka", password: "Foobar1")
             visit user_path(user)
 
-            # save_and_open_page
+          # save_and_open_page
         end
-        
+
         it "shows user's favorite beer" do
             expect(page).to have_content("Favorite beer: Beer3")
         end
-        
+
         it "shows user's favorite style" do
             expect(page).to have_content("Favorite style: IPA")
         end
-        
+
         it "shows user's favorite brewery" do
             expect(page).to have_content("Favorite brewery: Brewery2")
         end
         end
   end
-
 end
-

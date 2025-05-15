@@ -50,12 +50,12 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
   gem "rspec-rails", "~> 6.0.0"
-  gem 'factory_bot_rails' 
+  gem "factory_bot_rails"
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
-  gem 'launchy'
-  gem 'simplecov', require: false
+  gem "launchy"
+  gem "simplecov", require: false
 end
 
 group :development do

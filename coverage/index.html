@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2025-05-15T13:38:02+00:00">2025-05-15T13:38:02+00:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2025-05-15T13:51:40+00:00">2025-05-15T13:51:40+00:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -1952,7 +1952,7 @@
 
             
 
-            <code class="ruby">  before_action :set_breweries_and_styles_for_template, only: [:new, :edit, :create]</code>
+            <code class="ruby">  before_action :set_breweries_and_styles_for_template, only: [ :new, :edit, :create ]</code>
           </li>
         </div>
       
@@ -2832,7 +2832,7 @@
 
             
 
-            <code class="ruby">      @styles = [&quot;Weizen&quot;, &quot;Lager&quot;, &quot;Pale ale&quot;, &quot;IPA&quot;, &quot;Porter&quot;, &quot;Lowalcohol&quot;]</code>
+            <code class="ruby">      @styles = [ &quot;Weizen&quot;, &quot;Lager&quot;, &quot;Pale ale&quot;, &quot;IPA&quot;, &quot;Porter&quot;, &quot;Lowalcohol&quot; ]</code>
           </li>
         </div>
       
@@ -7847,7 +7847,7 @@
 
             
 
-            <code class="ruby">    style_ratings = ratings.group_by{ |r| r.beer.style }</code>
+            <code class="ruby">    style_ratings = ratings.group_by { |r| r.beer.style }</code>
           </li>
         </div>
       
@@ -7913,7 +7913,7 @@
 
             
 
-            <code class="ruby">    style_averages.max_by{ |s| s[:average] }[:style]</code>
+            <code class="ruby">    style_averages.max_by { |s| s[:average] }[:style]</code>
           </li>
         </div>
       
@@ -7967,7 +7967,7 @@
 
             
 
-            <code class="ruby">    </code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -7979,7 +7979,7 @@
 
             
 
-            <code class="ruby">    brewery_ratings = ratings.group_by{ |r| r.beer.brewery }</code>
+            <code class="ruby">    brewery_ratings = ratings.group_by { |r| r.beer.brewery }</code>
           </li>
         </div>
       
@@ -7989,7 +7989,7 @@
 
             
 
-            <code class="ruby">    </code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -8045,7 +8045,7 @@
 
             
 
-            <code class="ruby">    brewery_averages.max_by{ |b| b[:average] }[:brewery]</code>
+            <code class="ruby">    brewery_averages.max_by { |b| b[:average] }[:brewery]</code>
           </li>
         </div>
       

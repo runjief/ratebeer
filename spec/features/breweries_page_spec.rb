@@ -5,13 +5,12 @@ describe "Breweries page" do
     visit breweries_path
     expect(page).to have_content 'Listing breweries'
     expect(page).to have_content 'Number of breweries: 0'
-
   end
 
   describe "when breweries exists" do
     before :each do
-      # So that the variable is visible inside the it block, the name must start with @ 
-      @breweries = ["Koff", "Karjala", "Schlenkerla"]
+      # So that the variable is visible inside the it block, the name must start with @
+      @breweries = [ "Koff", "Karjala", "Schlenkerla" ]
       year = 1896
       @breweries.each do |brewery_name|
         FactoryBot.create(:brewery, name: brewery_name, year: year += 1)
@@ -33,6 +32,5 @@ describe "Breweries page" do
       expect(page).to have_content "Koff"
       expect(page).to have_content "Established at 1897"
     end
-
   end
 end

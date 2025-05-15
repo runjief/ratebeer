@@ -15,9 +15,9 @@ describe "Beer" do
     select('Lager', from: 'beer[style]')
     select('Koff', from: 'beer[brewery_id]')
 
-    expect{
+    expect {
       click_button "Create Beer"
-    }.to change{Beer.count}.from(0).to(1)
+    }.to change { Beer.count }.from(0).to(1)
   end
 
   it "is not created and returns to new beer page when name is invalid" do
@@ -26,10 +26,10 @@ describe "Beer" do
     select('Lager', from: 'beer[style]')
     select('Koff', from: 'beer[brewery_id]')
 
-    expect{
+    expect {
       click_button "Create Beer"
-    }.to change{Beer.count}.by(0)
-    
+    }.to change { Beer.count }.by(0)
+
     expect(page).to have_content "Name can't be blank"
     expect(current_path).to eq(beers_path)
   end
