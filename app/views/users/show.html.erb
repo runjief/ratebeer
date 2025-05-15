@@ -16,6 +16,9 @@
   <% if @user.favorite_brewery %>
     <p><strong>Favorite brewery:</strong> <%= @user.favorite_brewery.name %></p>
   <% end %>
+  <% if @user.favorite_beer %>
+    <p><strong>Favorite beer:</strong> <%= @user.favorite_beer.name %></p>
+  <% end %>
   <h4>Ratings</h4>
   <ul>
     <% @user.ratings.each do |rating| %>

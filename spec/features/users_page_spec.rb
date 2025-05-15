@@ -71,6 +71,52 @@ describe "User" do
       
       expect(page).to have_content "Has made 1 rating"  
     end
+
+
+    it "allows user to delete their own rating" do
+        visit user_path(user1)
+        
+        expect(user1.ratings.count).to eq(2)
+        expect{
+          find('li', text: 'Beer1').click_link('Delete')
+        }.to change{Rating.count}.by(-1)
+        
+        expect(page).not_to have_content("Beer1 10")
+        
+        expect(page).to have_content("Has made 1 rating")
+    end
+
+    describe "favorite beer, style and brewery" do
+        let!(:user) { User.find_by(username: "Pekka") || FactoryBot.create(:user, username: "Pekka") }
+        let!(:brewery1) { FactoryBot.create(:brewery, name: "Brewery1") }
+        let!(:brewery2) { FactoryBot.create(:brewery, name: "Brewery2") }
+        let!(:beer1) { FactoryBot.create(:beer, name: "Beer1", style: "IPA", brewery: brewery1) }
+        let!(:beer2) { FactoryBot.create(:beer, name: "Beer2", style: "Lager", brewery: brewery1) }
+        let!(:beer3) { FactoryBot.create(:beer, name: "Beer3", style: "IPA", brewery: brewery2) }
+        
+        before :each do
+            FactoryBot.create(:rating, score: 15, beer: beer1, user: user)  
+            FactoryBot.create(:rating, score: 10, beer: beer2, user: user)  
+            FactoryBot.create(:rating, score: 20, beer: beer3, user: user)  
+            
+            sign_in(username: "Pekka", password: "Foobar1")
+            visit user_path(user)
+
+            # save_and_open_page
+        end
+        
+        it "shows user's favorite beer" do
+            expect(page).to have_content("Favorite beer: Beer3")
+        end
+        
+        it "shows user's favorite style" do
+            expect(page).to have_content("Favorite style: IPA")
+        end
+        
+        it "shows user's favorite brewery" do
+            expect(page).to have_content("Favorite brewery: Brewery2")
+        end
+        end
   end
 
 end
