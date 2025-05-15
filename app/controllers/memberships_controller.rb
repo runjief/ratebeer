@@ -1,6 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: %i[ show edit update destroy ]
-  before_action :ensure_current_user, only: [:new, :create]
+  before_action :ensure_current_user, only: [ :new, :create ]
   # GET /memberships or /memberships.json
   def index
     @memberships = Membership.all
