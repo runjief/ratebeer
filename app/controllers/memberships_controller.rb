@@ -1,6 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: %i[ show edit update destroy ]
-
+  before_action :ensure_current_user, only: [:new, :create]
   # GET /memberships or /memberships.json
   def index
     @memberships = Membership.all
@@ -13,11 +13,12 @@ class MembershipsController < ApplicationController
   # GET /memberships/new
   def new
     @membership = Membership.new
-    @beer_clubs = BeerClub.all - current_user.beer_clubs
+    @beer_clubs = current_user ? BeerClub.all - current_user.beer_clubs : BeerClub.all
   end
 
   # GET /memberships/1/edit
   def edit
+    @beer_clubs = current_user ? BeerClub.all - current_user.beer_clubs : BeerClub.all
   end
 
   # POST /memberships or /memberships.json
@@ -63,11 +64,11 @@ class MembershipsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_membership
-      @membership = Membership.find(params.expect(:id))
+      @membership = Membership.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def membership_params
-      params.expect(membership: [ :beer_club_id, :user_id ])
+      params.require(:membership).permit(:beer_club_id, :user_id)
     end
 end

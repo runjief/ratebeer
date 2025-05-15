@@ -60,12 +60,12 @@ class BreweriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_brewery
-      @brewery = Brewery.find(params.expect(:id))
+      @brewery = Brewery.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def brewery_params
-      params.expect(brewery: [ :name, :year ])
+      params.require(:brewery).permit(:name, :year)
     end
 
 

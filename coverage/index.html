@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2025-05-15T13:51:40+00:00">2025-05-15T13:51:40+00:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2025-05-15T14:32:00+00:00">2025-05-15T14:32:00+00:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -22,14 +22,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="red">
-  47.01%
+  46.74%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         4.17
+         4.14
        </span>
     </span> hits/line
     )
@@ -42,11 +42,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>351</b> relevant lines,
+    <b>353</b> relevant lines,
     <span class="green"><b>165</b> lines covered</span> and
-    <span class="red"><b>186</b> lines missed. </span>
+    <span class="red"><b>188</b> lines missed. </span>
     (<span class="red">
-  47.01%
+  46.74%
 </span>
 )
   </div>
@@ -116,10 +116,10 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#a51d9a5198f35c3e4946ddaa3ca92c3a3f6cbdc6" class="src_link" title="app/controllers/memberships_controller.rb">app/controllers/memberships_controller.rb</a></td>
             <td class="red strong cell--number t-file__coverage">0.00 %</td>
-            <td class="cell--number">73</td>
-            <td class="cell--number">53</td>
+            <td class="cell--number">74</td>
+            <td class="cell--number">55</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">53</td>
+            <td class="cell--number">55</td>
             <td class="cell--number">0.00</td>
             
           </tr>
@@ -345,14 +345,14 @@
     <span class="group_name">Controllers</span>
     (<span class="covered_percent">
       <span class="red">
-  38.31%
+  38.02%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.99
+         1.98
        </span>
     </span> hits/line
     )
@@ -365,11 +365,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>261</b> relevant lines,
+    <b>263</b> relevant lines,
     <span class="green"><b>100</b> lines covered</span> and
-    <span class="red"><b>161</b> lines missed. </span>
+    <span class="red"><b>163</b> lines missed. </span>
     (<span class="red">
-  38.31%
+  38.02%
 </span>
 )
   </div>
@@ -439,10 +439,10 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#a51d9a5198f35c3e4946ddaa3ca92c3a3f6cbdc6" class="src_link" title="app/controllers/memberships_controller.rb">app/controllers/memberships_controller.rb</a></td>
             <td class="red strong cell--number t-file__coverage">0.00 %</td>
-            <td class="cell--number">73</td>
-            <td class="cell--number">53</td>
+            <td class="cell--number">74</td>
+            <td class="cell--number">55</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">53</td>
+            <td class="cell--number">55</td>
             <td class="cell--number">0.00</td>
             
           </tr>
@@ -3541,7 +3541,7 @@
 
             
 
-            <code class="ruby">      @brewery = Brewery.find(params.expect(:id))</code>
+            <code class="ruby">      @brewery = Brewery.find(params[:id])</code>
           </li>
         </div>
       
@@ -3593,7 +3593,7 @@
 
             
 
-            <code class="ruby">      params.expect(brewery: [ :name, :year ])</code>
+            <code class="ruby">      params.require(:brewery).permit(:name, :year)</code>
           </li>
         </div>
       
@@ -3728,9 +3728,9 @@
     
 
     <div class="t-line-summary">
-      <b>53</b> relevant lines.
+      <b>55</b> relevant lines.
       <span class="green"><b>0</b> lines covered</span> and
-      <span class="red"><b>53</b> lines missed.</span>
+      <span class="red"><b>55</b> lines missed.</span>
     </div>
 
     
@@ -3761,12 +3761,12 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="3">
+          <li class="missed" data-hits="0" data-linenumber="3">
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  before_action :ensure_current_user, only: [:new, :create]</code>
           </li>
         </div>
       
@@ -3896,7 +3896,7 @@
 
             
 
-            <code class="ruby">    @beer_clubs = BeerClub.all - current_user.beer_clubs</code>
+            <code class="ruby">    @beer_clubs = current_user ? BeerClub.all - current_user.beer_clubs : BeerClub.all</code>
           </li>
         </div>
       
@@ -3946,17 +3946,17 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    @beer_clubs = current_user ? BeerClub.all - current_user.beer_clubs : BeerClub.all</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="22">
+          <li class="missed" data-hits="0" data-linenumber="22">
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -3966,17 +3966,17 @@
 
             
 
-            <code class="ruby">  # POST /memberships or /memberships.json</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="24">
+          <li class="never" data-hits="" data-linenumber="24">
             
 
             
 
-            <code class="ruby">  def create</code>
+            <code class="ruby">  # POST /memberships or /memberships.json</code>
           </li>
         </div>
       
@@ -3986,7 +3986,7 @@
 
             
 
-            <code class="ruby">    @membership = Membership.new(membership_params)</code>
+            <code class="ruby">  def create</code>
           </li>
         </div>
       
@@ -3996,27 +3996,27 @@
 
             
 
+            <code class="ruby">    @membership = Membership.new(membership_params)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="27">
+            
+
+            
+
             <code class="ruby">    @membership.user = current_user</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="27">
+          <li class="never" data-hits="" data-linenumber="28">
             
 
             
 
             <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="28">
-            
-
-            
-
-            <code class="ruby">    respond_to do |format|</code>
           </li>
         </div>
       
@@ -4026,7 +4026,7 @@
 
             
 
-            <code class="ruby">      if @membership.save</code>
+            <code class="ruby">    respond_to do |format|</code>
           </li>
         </div>
       
@@ -4036,7 +4036,7 @@
 
             
 
-            <code class="ruby">        format.html { redirect_to beer_club_url(@membership.beer_club), notice: &quot;#{current_user.username} welcome to the club!&quot; }</code>
+            <code class="ruby">      if @membership.save</code>
           </li>
         </div>
       
@@ -4046,7 +4046,7 @@
 
             
 
-            <code class="ruby">        format.json { render :show, status: :created, location: @membership }</code>
+            <code class="ruby">        format.html { redirect_to beer_club_url(@membership.beer_club), notice: &quot;#{current_user.username} welcome to the club!&quot; }</code>
           </li>
         </div>
       
@@ -4056,7 +4056,7 @@
 
             
 
-            <code class="ruby">      else</code>
+            <code class="ruby">        format.json { render :show, status: :created, location: @membership }</code>
           </li>
         </div>
       
@@ -4066,7 +4066,7 @@
 
             
 
-            <code class="ruby">        @beer_clubs = BeerClub.all - current_user.beer_clubs</code>
+            <code class="ruby">      else</code>
           </li>
         </div>
       
@@ -4076,7 +4076,7 @@
 
             
 
-            <code class="ruby">        format.html { render :new, status: :unprocessable_entity }</code>
+            <code class="ruby">        @beer_clubs = BeerClub.all - current_user.beer_clubs</code>
           </li>
         </div>
       
@@ -4086,7 +4086,7 @@
 
             
 
-            <code class="ruby">        format.json { render json: @membership.errors, status: :unprocessable_entity }</code>
+            <code class="ruby">        format.html { render :new, status: :unprocessable_entity }</code>
           </li>
         </div>
       
@@ -4096,7 +4096,7 @@
 
             
 
-            <code class="ruby">      end</code>
+            <code class="ruby">        format.json { render json: @membership.errors, status: :unprocessable_entity }</code>
           </li>
         </div>
       
@@ -4106,7 +4106,7 @@
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">      end</code>
           </li>
         </div>
       
@@ -4116,17 +4116,17 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="39">
+          <li class="missed" data-hits="0" data-linenumber="39">
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -4136,17 +4136,17 @@
 
             
 
-            <code class="ruby">  # PATCH/PUT /memberships/1 or /memberships/1.json</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="41">
+          <li class="never" data-hits="" data-linenumber="41">
             
 
             
 
-            <code class="ruby">  def update</code>
+            <code class="ruby">  # PATCH/PUT /memberships/1 or /memberships/1.json</code>
           </li>
         </div>
       
@@ -4156,7 +4156,7 @@
 
             
 
-            <code class="ruby">    respond_to do |format|</code>
+            <code class="ruby">  def update</code>
           </li>
         </div>
       
@@ -4166,7 +4166,7 @@
 
             
 
-            <code class="ruby">      if @membership.update(membership_params)</code>
+            <code class="ruby">    respond_to do |format|</code>
           </li>
         </div>
       
@@ -4176,7 +4176,7 @@
 
             
 
-            <code class="ruby">        format.html { redirect_to @membership, notice: &quot;Membership was successfully updated.&quot; }</code>
+            <code class="ruby">      if @membership.update(membership_params)</code>
           </li>
         </div>
       
@@ -4186,7 +4186,7 @@
 
             
 
-            <code class="ruby">        format.json { render :show, status: :ok, location: @membership }</code>
+            <code class="ruby">        format.html { redirect_to @membership, notice: &quot;Membership was successfully updated.&quot; }</code>
           </li>
         </div>
       
@@ -4196,7 +4196,7 @@
 
             
 
-            <code class="ruby">      else</code>
+            <code class="ruby">        format.json { render :show, status: :ok, location: @membership }</code>
           </li>
         </div>
       
@@ -4206,7 +4206,7 @@
 
             
 
-            <code class="ruby">        format.html { render :edit, status: :unprocessable_entity }</code>
+            <code class="ruby">      else</code>
           </li>
         </div>
       
@@ -4216,7 +4216,7 @@
 
             
 
-            <code class="ruby">        format.json { render json: @membership.errors, status: :unprocessable_entity }</code>
+            <code class="ruby">        format.html { render :edit, status: :unprocessable_entity }</code>
           </li>
         </div>
       
@@ -4226,7 +4226,7 @@
 
             
 
-            <code class="ruby">      end</code>
+            <code class="ruby">        format.json { render json: @membership.errors, status: :unprocessable_entity }</code>
           </li>
         </div>
       
@@ -4236,7 +4236,7 @@
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">      end</code>
           </li>
         </div>
       
@@ -4246,17 +4246,17 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="52">
+          <li class="missed" data-hits="0" data-linenumber="52">
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -4266,17 +4266,17 @@
 
             
 
-            <code class="ruby">  # DELETE /memberships/1 or /memberships/1.json</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="54">
+          <li class="never" data-hits="" data-linenumber="54">
             
 
             
 
-            <code class="ruby">  def destroy</code>
+            <code class="ruby">  # DELETE /memberships/1 or /memberships/1.json</code>
           </li>
         </div>
       
@@ -4286,27 +4286,27 @@
 
             
 
+            <code class="ruby">  def destroy</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="56">
+            
+
+            
+
             <code class="ruby">    @membership.destroy!</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="56">
+          <li class="never" data-hits="" data-linenumber="57">
             
 
             
 
             <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="57">
-            
-
-            
-
-            <code class="ruby">    respond_to do |format|</code>
           </li>
         </div>
       
@@ -4316,7 +4316,7 @@
 
             
 
-            <code class="ruby">      format.html { redirect_to memberships_path, status: :see_other, notice: &quot;Membership was successfully destroyed.&quot; }</code>
+            <code class="ruby">    respond_to do |format|</code>
           </li>
         </div>
       
@@ -4326,7 +4326,7 @@
 
             
 
-            <code class="ruby">      format.json { head :no_content }</code>
+            <code class="ruby">      format.html { redirect_to memberships_path, status: :see_other, notice: &quot;Membership was successfully destroyed.&quot; }</code>
           </li>
         </div>
       
@@ -4336,7 +4336,7 @@
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">      format.json { head :no_content }</code>
           </li>
         </div>
       
@@ -4346,12 +4346,22 @@
 
             
 
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="62">
+            
+
+            
+
             <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="62">
+          <li class="never" data-hits="" data-linenumber="63">
             
 
             
@@ -4361,7 +4371,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="63">
+          <li class="missed" data-hits="0" data-linenumber="64">
             
 
             
@@ -4371,7 +4381,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="64">
+          <li class="never" data-hits="" data-linenumber="65">
             
 
             
@@ -4381,7 +4391,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="65">
+          <li class="missed" data-hits="0" data-linenumber="66">
             
 
             
@@ -4391,32 +4401,22 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="66">
-            
-
-            
-
-            <code class="ruby">      @membership = Membership.find(params.expect(:id))</code>
-          </li>
-        </div>
-      
-        <div>
           <li class="missed" data-hits="0" data-linenumber="67">
             
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">      @membership = Membership.find(params[:id])</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="68">
+          <li class="missed" data-hits="0" data-linenumber="68">
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -4426,17 +4426,17 @@
 
             
 
-            <code class="ruby">    # Only allow a list of trusted parameters through.</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="70">
+          <li class="never" data-hits="" data-linenumber="70">
             
 
             
 
-            <code class="ruby">    def membership_params</code>
+            <code class="ruby">    # Only allow a list of trusted parameters through.</code>
           </li>
         </div>
       
@@ -4446,7 +4446,7 @@
 
             
 
-            <code class="ruby">      params.expect(membership: [ :beer_club_id, :user_id ])</code>
+            <code class="ruby">    def membership_params</code>
           </li>
         </div>
       
@@ -4456,12 +4456,22 @@
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">      params.require(:membership).permit(:beer_club_id, :user_id)</code>
           </li>
         </div>
       
         <div>
           <li class="missed" data-hits="0" data-linenumber="73">
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="74">
             
 
             
@@ -5853,7 +5863,7 @@
 
             
 
-            <code class="ruby">      @user = User.find(params.expect(:id))</code>
+            <code class="ruby">       @user = User.find(params[:id])</code>
           </li>
         </div>
       
