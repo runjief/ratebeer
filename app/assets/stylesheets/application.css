@@ -12,3 +12,21 @@
   padding: 10px;
   background: #EFEFEF;
 }
+
+.weather-info {
+  background-color: #f8f9fa;
+  padding: 15px;
+  margin: 20px 0;
+}
+
+.weather-details {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.weather-details img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}

@@ -7,9 +7,12 @@ class PlacesController < ApplicationController
     if @place.nil?
       redirect_to places_path, notice: "Restaurant not found"
     end
+
+    @weather = WeatherApi.current(@place.city)
   end
   def search
     @places = BeermappingApi.places_in(params[:city])
+    @weather = WeatherApi.current(params[:city]) if @places.any?
     if @places.empty?
       redirect_to places_path, notice: "No locations in #{params[:city]}"
     else

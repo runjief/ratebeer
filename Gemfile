@@ -56,6 +56,8 @@ group :development, :test do
   gem "webdrivers"
   gem "launchy"
   gem "simplecov", require: false
+
+  gem 'dotenv-rails'
 end
 
 group :development do

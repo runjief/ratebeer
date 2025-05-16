@@ -7,25 +7,44 @@
   <%= form.submit "Search" %>
 <% end %>
 
-<% if @places %>
+<% if @places && @places.any? %>
+  <h2>Beer places in <%= session[:last_city] %></h2>
+
+  <% if @weather %>
+    <div class="weather-info">
+      <h3>Current weather in <%= session[:last_city] %></h3>
+      <div class="weather-details">
+        <% if @weather[:weather_icons] && @weather[:weather_icons].first %>
+          <img src="<%= @weather[:weather_icons].first %>" alt="Weather icon">
+        <% end %>
+        <p>
+          <strong>Temperature:</strong> <%= @weather[:temperature] %>°C<br>
+          <strong>Description:</strong> <%= @weather[:weather_descriptions].first if @weather[:weather_descriptions] %><br>
+          <strong>Wind:</strong> <%= @weather[:wind_speed] %> km/h <%= @weather[:wind_dir] %><br>
+          <strong>Humidity:</strong> <%= @weather[:humidity] %>%
+        </p>
+      </div>
+    </div>
+  <% end %>
+
   <table>
     <thead>
       <tr>
-        <% Place.rendered_fields.each do |field| %>
-          <th><%= field %></th>
-        <% end %>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>Overall</th>
       </tr>
     </thead>
     <tbody>
       <% @places.each do |place| %>
         <tr>
-          <% Place.rendered_fields.each do |field| %>
-            <% if field == :name %>
-              <td><%= link_to place.name, place_path(place.id) %></td>
-            <% else %>
-              <td><%= place.send(field) %></td>
-            <% end %>
-          <% end %>
+          <td><%= link_to place.name, place_path(place.id) %></td>
+          <td><%= place.status %></td>
+          <td><%= place.street %></td>
+          <td><%= place.city %></td>
+          <td><%= place.overall %></td>
         </tr>
       <% end %>
     </tbody>

@@ -1,4 +1,4 @@
-<h2><%= @place.name %></h2>
+<h1><%= @place.name %></h1>
 
 <p>
   <strong>Status:</strong> <%= @place.status %>
@@ -11,16 +11,35 @@
   <%= @place.country %>
 </p>
 
+<% if @weather %>
+  <h3>Current weather in <%= @place.city %></h3>
+  <div class="weather-details">
+    <% if @weather[:weather_icons] && @weather[:weather_icons].first %>
+      <img src="<%= @weather[:weather_icons].first %>" alt="Weather icon">
+    <% end %>
+    <p>
+      <strong>Temperature:</strong> <%= @weather[:temperature] %>°C<br>
+      <strong>Description:</strong> <%= @weather[:weather_descriptions].first if @weather[:weather_descriptions] %><br>
+      <strong>Wind:</strong> <%= @weather[:wind_speed] %> km/h <%= @weather[:wind_dir] %><br>
+      <strong>Humidity:</strong> <%= @weather[:humidity] %>%
+    </p>
+  </div>
+<% end %>
+
 <% if @place.phone.present? %>
-<p>
-  <strong>Phone:</strong> <%= @place.phone %>
-</p>
+  <p>
+    <strong>Phone:</strong> <%= @place.phone %>
+  </p>
 <% end %>
 
 <% if @place.overall.present? && @place.overall.to_f > 0 %>
-<p>
-  <strong>Rating:</strong> <%= @place.overall %>
-</p>
+  <p>
+    <strong>Rating:</strong> <%= @place.overall %>
+  </p>
 <% end %>
 
-<%= link_to "Back to list", places_path %>
+<p>
+  <a href="<%= @place.reviewlink %>" target="_blank">View on Beermapping.com</a>
+</p>
+
+<%= link_to "Back to places", places_path %>
