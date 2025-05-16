@@ -1,55 +1,116 @@
-<h2>List of ratings</h2>
+<h1>Ratings</h1>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-4">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h3>Best beers</h3>
+      </div>
+      <div class="card-body">
+        <table class="table table-hover">
+          <tbody>
+            <% @top_beers.each do |beer| %>
+              <tr>
+                <td><%= link_to beer.name, beer %></td>
+                <td><%= beer.average_rating.round(1) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h3>Best breweries</h3>
+      </div>
+      <div class="card-body">
+        <table class="table table-hover">
+          <tbody>
+            <% @top_breweries.each do |brewery| %>
+              <tr>
+                <td><%= link_to brewery.name, brewery %></td>
+                <td><%= brewery.average_rating.round(1) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
     <div class="card mb-4">
       <div class="card-header">
         <h3>Recent ratings</h3>
       </div>
       <div class="card-body">
         <ul class="list-group">
-          <% @ratings.each do |rating| %>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <%= render rating %>
-              <% if current_user && current_user == rating.user %>
-                <%= button_to 'Delete', rating, method: :delete, class: "btn btn-sm btn-danger" %>
-              <% end %>
+          <% @recent_ratings.each do |rating| %>
+            <li class="list-group-item">
+              <%= "#{rating.beer.name} #{rating.score}" %> 
+              <%= link_to rating.user.username, rating.user %>
             </li>
           <% end %>
         </ul>
       </div>
     </div>
   </div>
-  
+</div>
+
+<div class="row mt-3">
   <div class="col-md-6">
-    <div class="card">
+    <div class="card mb-4">
       <div class="card-header">
-        <h3>Statistics</h3>
+        <h3>Best styles</h3>
       </div>
       <div class="card-body">
-        <p>Total ratings: <%= @ratings.count %></p>
-        
-        <% if @recent_rating %>
-          <p>Most recent rating: <%= @recent_rating.score %> for <%= @recent_rating.beer.name %></p>
-        <% end %>
-        
-        <% if @top_beers && @top_beers.any? %>
-          <h4>Top beers</h4>
-          <ul class="list-group">
-            <% @top_beers.each do |beer| %>
-              <li class="list-group-item">
-                <%= link_to beer.name, beer %> (<%= beer.average_rating %>)
-              </li>
+        <table class="table table-hover">
+          <tbody>
+            <% @top_styles.each do |style| %>
+              <tr>
+                <td><%= link_to style.name, style %></td>
+                <td>
+                  <% ratings = style.beers.flat_map(&:ratings) %>
+                  <% if ratings.any? %>
+                    <%= (ratings.sum(&:score) / ratings.size).round(1) %>
+                  <% else %>
+                    0
+                  <% end %>
+                </td>
+              </tr>
             <% end %>
-          </ul>
-        <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h3>Most active users</h3>
+      </div>
+      <div class="card-body">
+        <table class="table table-hover">
+          <tbody>
+            <% @most_active_users.each do |user| %>
+              <tr>
+                <td><%= link_to user.username, user %></td>
+                <td><%= user.ratings.count %> ratings</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 </div>
 
+<p>Total number of ratings: <%= @ratings.count %></p>
+
 <% if current_user %>
-  <div class="mt-4">
-    <%= link_to 'New Rating', new_rating_path, class:"btn btn-primary" %>
-  </div>
+  <%= link_to 'New rating', new_rating_path, class: "btn btn-primary" %>
 <% end %>

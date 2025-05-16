@@ -13,7 +13,9 @@ class User < ApplicationRecord
   has_many :beers, through: :ratings
   has_many :memberships, dependent: :destroy
   has_many :beer_clubs, through: :memberships
-  
+  def self.most_active(n)
+    User.all.sort_by{ |u| -u.ratings.count }.take(n)
+  end
   def favorite_beer
     return nil if ratings.empty?
     ratings.sort_by(&:score).last.beer

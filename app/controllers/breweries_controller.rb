@@ -3,7 +3,8 @@ class BreweriesController < ApplicationController
   before_action :ensure_that_signed_in, except: [ :index, :show ]
   # GET /breweries or /breweries.json
   def index
-    @breweries = Brewery.all
+    @active_breweries = Brewery.active
+    @retired_breweries = Brewery.retired
   end
 
   # GET /breweries/1 or /breweries/1.json
@@ -65,7 +66,7 @@ class BreweriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def brewery_params
-      params.require(:brewery).permit(:name, :year)
+      params.require(:brewery).permit(:name, :year, :active)
     end
 
 

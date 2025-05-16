@@ -1,12 +1,25 @@
 <div id="<%= dom_id brewery %>">
   <h2>
-    <strong><%= brewery.name %></strong>
+    <%= brewery.name %>
+    <% if not brewery.active %>
+      <span class="badge bg-secondary">retired</span>
+    <% end %>
   </h2>
+  
   <p><em>Established at <%= brewery.year %></em></p>
+  
   <p>Beer count: <%= brewery.beers.count %></p>
-<p>
- <% brewery.beers.each do |beer| %>
-    <%= link_to beer.name, beer %>
- <% end %>
-</p>
+  
+  <% if brewery.beers.any? %>
+    <p>
+      <strong>Beers:</strong>
+    </p>
+    <ul>
+      <% brewery.beers.each do |beer| %>
+        <li><%= link_to beer.name, beer %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No beers yet!</p>
+  <% end %>
 </div>
