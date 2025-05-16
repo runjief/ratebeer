@@ -1,6 +1,7 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: %i[ show edit update destroy ]
   before_action :ensure_current_user, only: [ :new, :create ]
+  before_action :ensure_current_user
   # GET /memberships or /memberships.json
   def index
     @memberships = Membership.all
@@ -70,5 +71,8 @@ class MembershipsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def membership_params
       params.require(:membership).permit(:beer_club_id, :user_id)
+    end
+    def ensure_current_user
+      redirect_to signin_path, notice: 'you should be signed in' if current_user.nil?
     end
 end

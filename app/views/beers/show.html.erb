@@ -1,15 +1,30 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @beer %>
-
 <div>
   <% if @beer.ratings.empty? %>
     <p>Beer has not yet been rated!</p>
   <% else %>
     <p>Beer has  <%= pluralize(@beer.ratings.count, 'rating') %>, with an average of <%= @beer.average_rating %></p>
   <% end %>
-  <%= link_to "Edit this beer", edit_beer_path(@beer) %> |
-  <%= link_to "Back to beers", beers_path %>
-
-  <%= button_to "Destroy this beer", @beer, method: :delete %>
 </div>
+
+<% if current_user %>
+
+  <h4>give a rating:</h4>
+
+  <%= form_with(model: @rating) do |form| %>
+    <%= form.hidden_field :beer_id %>
+    score: <%= form.number_field :score %>
+    <%= form.submit "Create rating" %>
+  <% end %>
+
+  <div>
+    <%= link_to "Edit this beer", edit_beer_path(@beer) %> |
+
+
+    <%= button_to "Destroy this beer", @beer, method: :delete %>
+  </div>
+<% end %>
+
+<%= link_to "Back to beers", beers_path %>
