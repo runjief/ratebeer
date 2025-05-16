@@ -3,7 +3,6 @@ module ApplicationHelper
     unless current_user.nil?
       edit = link_to('Edit', url_for([:edit, item]), class: "btn btn-primary")
       
-      # Only show delete button to admins
       del = if current_user.admin?
         link_to('Destroy', item, method: :delete,
                                 form: { data: { turbo_confirm: "Are you sure ?" } },

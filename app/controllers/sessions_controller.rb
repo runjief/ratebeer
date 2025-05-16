@@ -5,12 +5,17 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by username: params[:username]
-    # check that user exists and the password is correct
-    if user && user.authenticate(params[:password])
-        session[:user_id] = user.id
-        redirect_to user_path(user), notice: "Welcome back!"
+    
+    if user&.account_status?
+      redirect_to signin_path, notice: "Your account is frozen, please contact admin"
+      return
+    end
+    
+    if user&.authenticate(params[:password])
+      session[:user_id] = user.id
+      redirect_to user_path(user), notice: "Welcome back!"
     else
-        redirect_to signin_path, notice: "Username and/or password mismatch"
+      redirect_to signin_path, notice: "Username and/or password mismatch"
     end
   end
 

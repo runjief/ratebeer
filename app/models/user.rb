@@ -41,4 +41,16 @@ class User < ApplicationRecord
     end
     brewery_averages.max_by { |b| b[:average] }[:brewery]
   end
+
+  def account_frozen?
+    account_status
+  end
+
+  def freeze_account
+    update_attribute(:account_status, true)
+  end
+
+  def unfreeze_account
+    update_attribute(:account_status, false)
+  end
 end

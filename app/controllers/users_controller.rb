@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
-
+  before_action :ensure_that_admin, only: [:toggle_frozen]
   # GET /users or /users.json
   def index
     @users = User.all
@@ -66,7 +66,20 @@ class UsersController < ApplicationController
       end
     end
   end
+  def toggle_frozen
+    @user = User.find(params[:id])
+    
+    unless current_user&.admin?
+      redirect_to user_path(@user), notice: "Only admins can freeze/unfreeze accounts"
+      return
+    end
+    
+    @user.update_attribute :account_status, (not @user.account_status)
 
+    new_status = @user.account_status? ? "frozen" : "active"
+
+    redirect_to @user, notice: "User account is now #{new_status}"
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
