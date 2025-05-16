@@ -3,6 +3,7 @@ include Helpers
 
 describe "Beer" do
   let!(:brewery) { FactoryBot.create :brewery, name: "Koff" }
+  let!(:style) { FactoryBot.create :style, name: "Lager" }
   let!(:user) { FactoryBot.create :user }
 
   before :each do
@@ -12,7 +13,7 @@ describe "Beer" do
   it "is created when given a valid name" do
     visit new_beer_path
     fill_in('beer[name]', with: 'Test Beer')
-    select('Lager', from: 'beer[style]')
+    select('Lager', from: 'beer[style_id]')
     select('Koff', from: 'beer[brewery_id]')
 
     expect {
@@ -23,7 +24,7 @@ describe "Beer" do
   it "is not created and returns to new beer page when name is invalid" do
     visit new_beer_path
     fill_in('beer[name]', with: '')
-    select('Lager', from: 'beer[style]')
+    select('Lager', from: 'beer[style_id]')
     select('Koff', from: 'beer[brewery_id]')
 
     expect {

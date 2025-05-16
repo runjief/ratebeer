@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :style do
-    name { "MyString" }
-    description { "MyText" }
+    name { "Lager" }
+    description { "Description for Larger style" }
   end
 
   factory :user do
@@ -17,7 +17,7 @@ FactoryBot.define do
 
   factory :beer do
     name { "anonymous" }
-    style { "Lager" }
+    style
     brewery # the brewery associated with beer is created with brewery factory
   end
 
