@@ -1,7 +1,7 @@
 class MembershipsController < ApplicationController
-  before_action :set_membership, only: %i[ show edit update destroy ]
+  before_action :set_membership, only: %i[ show edit update ]
   before_action :ensure_current_user, only: [ :new, :create ]
-  before_action :ensure_current_user
+  before_action :ensure_that_signed_in, except: [:index, :show]
   # GET /memberships or /memberships.json
   def index
     @memberships = Membership.all
@@ -54,10 +54,17 @@ class MembershipsController < ApplicationController
 
   # DELETE /memberships/1 or /memberships/1.json
   def destroy
-    @membership.destroy!
+    membership = Membership.find_by(
+      beer_club_id: params[:beer_club_id],
+      user_id: current_user.id
+    )
+    
+    beer_club = membership.beer_club
+    
+    membership.destroy if membership
 
     respond_to do |format|
-      format.html { redirect_to memberships_path, status: :see_other, notice: "Membership was successfully destroyed." }
+      format.html { redirect_to user_path(current_user), notice: "Membership in #{beer_club.name} ended." }
       format.json { head :no_content }
     end
   end

@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   resources :users
   resources :beers
   resources :breweries
-  resources :memberships
+  resources :memberships, only: [:new, :create, :destroy]
+  delete 'memberships', to: 'memberships#destroy'
   resources :beer_clubs
   root "breweries#index"
   get "all_beers", to: "beers#index"
