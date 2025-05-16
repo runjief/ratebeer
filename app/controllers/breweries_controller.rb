@@ -77,4 +77,12 @@ class BreweriesController < ApplicationController
       admin_accounts[username] == password
     end
   end
+  def toggle_activity
+    brewery = Brewery.find(params[:id])
+    brewery.update_attribute :active, (not brewery.active)
+
+    new_status = brewery.active? ? "active" : "retired"
+
+    redirect_to brewery, notice:"brewery activity status changed to #{new_status}"
+  end
 end
