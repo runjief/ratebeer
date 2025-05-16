@@ -15,9 +15,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    # resets the session
     session[:user_id] = nil
-    # redirects the application to the main page
-    redirect_to :root
+    
+    redirect_to root_path, notice: "Signed out!"
   end
 end

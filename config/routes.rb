@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :beers
   resources :breweries
   resources :memberships, only: [:new, :create, :destroy]
-  resources :styles, only: [:index, :show]
+  resources :styles
   delete 'memberships', to: 'memberships#destroy'
   resources :beer_clubs
   root "breweries#index"
@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "signup", to: "users#new", as: :signup
   get "signin", to: "sessions#new", as: "signin"
   delete "signout", to: "sessions#destroy", as: "signout"
+  get 'signout', to: 'sessions#destroy'
   resource :session, only: [ :new, :create, :destroy ]
   resources :places, only: [:index, :show]
   post 'places', to: 'places#search'

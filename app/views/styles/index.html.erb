@@ -5,6 +5,7 @@
     <div class="style-card">
       <h2><%= link_to style.name, style %></h2>
       <p><%= truncate(style.description, length: 150) %></p>
+      # <%= edit_and_destroy_buttons(style) %>
     </div>
   <% end %>
 </div>

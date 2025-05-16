@@ -5,7 +5,7 @@
   <% if @beer.ratings.empty? %>
     <p>Beer has not yet been rated!</p>
   <% else %>
-    <p>Beer has  <%= pluralize(@beer.ratings.count, 'rating') %>, with an average of <%= @beer.average_rating %></p>
+    <p>Beer has  <%= pluralize(@beer.ratings.count, 'rating') %>, with an average of <%= round(@beer.average_rating) %></p>
   <% end %>
 </div>
 
@@ -20,10 +20,7 @@
   <% end %>
 
   <div>
-    <%= link_to "Edit this beer", edit_beer_path(@beer) %> |
-
-
-    <%= button_to "Destroy this beer", @beer, method: :delete %>
+    <%= edit_and_destroy_buttons(@beer) %>
   </div>
 <% end %>
 

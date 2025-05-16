@@ -6,15 +6,15 @@
   <% if @brewery.ratings.empty? %>
     <p>Brewery has no ratings!</p>
   <% else %>
-    <p>Brewery has <%= pluralize(@brewery.ratings.count, 'rating') %>, with an average of <%= @brewery.average_rating.round(1) %></p>
+    <p>Brewery has <%= pluralize(@brewery.ratings.count, 'rating') %>, with an average of <%= round(@brewery.average_rating) %></p>
   <% end %>
 
-<% if current_user %>
+  <% if current_user %>
 
-  <%= link_to "Edit this brewery", edit_brewery_path(@brewery) %> |
-  <%= link_to "Back to breweries", breweries_path %>
+    <%= edit_and_destroy_buttons(@brewery) %>
+    # <%= button_to "Destroy this brewery", @brewery, method: :delete, 
+    #               data: { turbo_confirm: "Are you sure? This will also delete all beers and ratings!" } %>
 
-  <%= button_to "Destroy this brewery", @brewery, method: :delete, 
-                data: { turbo_confirm: "Are you sure? This will also delete all beers and ratings!" } %>
+  <% end %>
+<%= link_to "Back to breweries", breweries_path %>
 </div>
-<% end %>
