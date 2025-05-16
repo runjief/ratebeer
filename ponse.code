@@ -1,0 +1,13 @@
+=> 
+{[31m[1m"[0m[31mserver[0m[31m[1m"[0m => [[31m[1m"[0m[31mnginx/1.20.1[0m[31m[1m"[0m],
+ [31m[1m"[0m[31mdate[0m[31m[1m"[0m => [[31m[1m"[0m[31mFri, 16 May 2025 08:39:25 GMT[0m[31m[1m"[0m],
+ [31m[1m"[0m[31mcontent-type[0m[31m[1m"[0m => [[31m[1m"[0m[31mapplication/xml[0m[31m[1m"[0m],
+ [31m[1m"[0m[31mcontent-length[0m[31m[1m"[0m => [[31m[1m"[0m[31m6247[0m[31m[1m"[0m],
+ [31m[1m"[0m[31mx-powered-by[0m[31m[1m"[0m => [[31m[1m"[0m[31mExpress[0m[31m[1m"[0m],
+ [31m[1m"[0m[31maccept-ranges[0m[31m[1m"[0m => [[31m[1m"[0m[31mbytes[0m[31m[1m"[0m],
+ [31m[1m"[0m[31mcache-control[0m[31m[1m"[0m => [[31m[1m"[0m[31mpublic, max-age=0[0m[31m[1m"[0m],
+ [31m[1m"[0m[31mlast-modified[0m[31m[1m"[0m => [[31m[1m"[0m[31mWed, 02 Apr 2025 14:24:24 GMT[0m[31m[1m"[0m],
+ [31m[1m"[0m[31metag[0m[31m[1m"[0m => [[31m[1m"[0m[31mW/\"1867-195f6e391c0\"[0m[31m[1m"[0m],
+ [31m[1m"[0m[31mset-cookie[0m[31m[1m"[0m =>
+  [[31m[1m"[0m[31mc83c27d4fad704d2abcc94600fc20e48=c1e34d99ffc6825d8eaceca6f17d4fac; path=/; HttpOnly; Secure; SameSite=None[0m[31m[1m"[0m],
+ [31m[1m"[0m[31mconnection[0m[31m[1m"[0m => [[31m[1m"[0m[31mclose[0m[31m[1m"[0m]}
