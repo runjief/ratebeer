@@ -86,36 +86,35 @@ describe "User" do
         expect(page).to have_content("Has made 1 rating")
     end
 
-    describe "favorite beer, style and brewery" do
-        let!(:user) { User.find_by(username: "Pekka") || FactoryBot.create(:user, username: "Pekka") }
-        let!(:brewery1) { FactoryBot.create(:brewery, name: "Brewery1") }
-        let!(:brewery2) { FactoryBot.create(:brewery, name: "Brewery2") }
-        let!(:beer1) { FactoryBot.create(:beer, name: "Beer1", style: "IPA", brewery: brewery1) }
-        let!(:beer2) { FactoryBot.create(:beer, name: "Beer2", style: "Lager", brewery: brewery1) }
-        let!(:beer3) { FactoryBot.create(:beer, name: "Beer3", style: "IPA", brewery: brewery2) }
+    describe "ratings favorite beer, style and brewery" do
+      let!(:user) { FactoryBot.create(:user) }
+      let!(:brewery1) { FactoryBot.create(:brewery, name: "Brewery1") }
+      let!(:brewery2) { FactoryBot.create(:brewery, name: "Brewery2") }
 
-        before :each do
-            FactoryBot.create(:rating, score: 15, beer: beer1, user: user)
-            FactoryBot.create(:rating, score: 10, beer: beer2, user: user)
-            FactoryBot.create(:rating, score: 20, beer: beer3, user: user)
+      let!(:ipa) { FactoryBot.create(:style, name: "IPA") }
+      let!(:porter) { FactoryBot.create(:style, name: "Porter") }
+      
+      let!(:beer1) { FactoryBot.create(:beer, name: "Beer1", style: ipa, brewery: brewery1) }
+      let!(:beer2) { FactoryBot.create(:beer, name: "Beer2", style: porter, brewery: brewery2) }
 
-            sign_in(username: "Pekka", password: "Foobar1")
-            visit user_path(user)
+      before :each do
+        FactoryBot.create(:rating, beer: beer1, score: 10, user: user)
+        FactoryBot.create(:rating, beer: beer2, score: 20, user: user)
+        
+        visit user_path(user)
+      end
 
-          # save_and_open_page
-        end
+      it "shows user's favorite beer" do
+        expect(page).to have_content "Favorite beer: Beer2"
+      end
 
-        it "shows user's favorite beer" do
-            expect(page).to have_content("Favorite beer: Beer3")
-        end
+      it "shows user's favorite style" do
+        expect(page).to have_content "Favorite style: Porter"
+      end
 
-        it "shows user's favorite style" do
-            expect(page).to have_content("Favorite style: IPA")
-        end
-
-        it "shows user's favorite brewery" do
-            expect(page).to have_content("Favorite brewery: Brewery2")
-        end
-        end
+      it "shows user's favorite brewery" do
+        expect(page).to have_content "Favorite brewery: Brewery2"
+      end
+    end
   end
 end
