@@ -66,6 +66,26 @@
       </div>
     </nav>
 
-    <%= yield %>
+
+
+    <div class="container">
+      <% if notice %>
+        <div class="alert alert-primary" role="alert">
+          <%= notice %>
+        </div>
+      <% end %>
+      <div class="row">
+        <div class="col-sm-8">
+          <%= yield %>
+        </div>
+        <div class="col-sm-4">
+          <img
+            src="http://www.cs.helsinki.fi/u/mluukkai/wadror/pint.jpg"
+            width="200"
+            style="padding-top:30px"
+          >
+        </div>
+      </div>
+    </div>
   </body>
 </html>
