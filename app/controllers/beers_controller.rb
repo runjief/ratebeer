@@ -19,13 +19,13 @@ class BeersController < ApplicationController
   def new
     @beer = Beer.new
     @breweries = Brewery.all
-    @styles = [ "Weizen", "Lager", "Pale ale", "IPA", "Porter", "Low alcohol" ]
+    @styles = Style.all
   end
 
   # GET /beers/1/edit
   def edit
     @breweries = Brewery.all
-    @styles = [ "Weizen", "Lager", "Pale ale", "IPA", "Porter", "Lowalcohol" ]
+    @styles = Style.all
   end
 
   # POST /beers or /beers.json
@@ -51,6 +51,8 @@ class BeersController < ApplicationController
         format.html { redirect_to @beer, notice: "Beer was successfully updated." }
         format.json { render :show, status: :ok, location: @beer }
       else
+        @breweries = Brewery.all
+        @styles = Style.all
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @beer.errors, status: :unprocessable_entity }
       end
@@ -80,7 +82,7 @@ class BeersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def beer_params
-      params.require(:beer).permit(:name, :style, :brewery_id)  # Fixed 'expect' to 'require' and array to .permit()
+      params.require(:beer).permit(:name, :brewery_id, :style_id)
     end
 
     def set_breweries_and_styles_for_template

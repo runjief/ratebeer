@@ -1,6 +1,7 @@
 class Beer < ApplicationRecord
   include RatingAverage
   belongs_to :brewery
+  belongs_to :style, optional: true
   has_many :ratings, dependent: :destroy
   has_many :raters, through: :ratings, source: :user
   validates :name, presence: true

@@ -1,0 +1,21 @@
+<div class="style-header">
+   <b>Name: </b><%= @style.name %>
+</div>
+
+<div class="style-description">
+  <b>Description: </b><%= @style.description %>
+</div>
+
+<h4>Beers: </h2>
+
+<% if @beers.empty? %>
+  <p>No beers found for this style.</p>
+<% else %>
+  <ul>
+    <% @beers.each do |beer| %>
+      <li><%= link_to beer.name, beer %> by <%= link_to beer.brewery.name, beer.brewery %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= link_to "Back to styles", styles_path %>

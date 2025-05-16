@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
+  get "styles/index"
+  get "styles/show"
   resources :memberships
   resources :beer_clubs
   resources :users
   resources :beers
   resources :breweries
   resources :memberships, only: [:new, :create, :destroy]
+  resources :styles, only: [:index, :show]
   delete 'memberships', to: 'memberships#destroy'
   resources :beer_clubs
   root "breweries#index"

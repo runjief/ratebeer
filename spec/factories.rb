@@ -1,4 +1,9 @@
 FactoryBot.define do
+  factory :style do
+    name { "MyString" }
+    description { "MyText" }
+  end
+
   factory :user do
     username { "Pekka" }
     password { "Foobar1" }

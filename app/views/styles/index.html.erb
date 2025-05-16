@@ -1,0 +1,10 @@
+<h1>Beer Styles</h1>
+
+<div id="styles">
+  <% @styles.each do |style| %>
+    <div class="style-card">
+      <h2><%= link_to style.name, style %></h2>
+      <p><%= truncate(style.description, length: 150) %></p>
+    </div>
+  <% end %>
+</div>
