@@ -18,5 +18,19 @@ class BeermappingApi
       Place.new(place)
     end
   end
+  def self.place_with_id(id)
+    places = Rails.cache.read("places")
+    return nil if places.nil?
+    places.find { |place| place.id == id }
+  end
+
+  def self.places_in(city)
+    city = city.downcase
+    places = Rails.cache.fetch(city, expires_in: 1.week) { get_places_in(city) }
+
+    Rails.cache.write("places", places)
+    
+    places
+  end
 
 end

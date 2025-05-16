@@ -5,17 +5,37 @@
         "lines": [
           1,
           1,
-          3,
+          0,
+          0,
           null,
-          3,
-          3,
           null,
-          3,
           null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
           2,
-          2,
-          4,
           null,
+          null,
+          1,
+          1,
+          2,
+          null,
+          1,
+          null,
+          1,
           null,
           null
         ]
@@ -26,27 +46,57 @@
           null,
           1,
           1,
+          8,
+          null
+        ]
+      },
+      "/workspaces/TKT21003/ratebeer/app/controllers/places_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          4,
+          4,
+          1,
+          null,
+          3,
+          3,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          0,
+          0,
           0,
           null
         ]
       },
       "/workspaces/TKT21003/ratebeer/app/controllers/application_controller.rb": {
         "lines": [
+          1,
+          null,
+          1,
+          null,
+          1,
+          9,
           0,
           null,
+          null,
+          1,
           0,
           null,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
+          null
+        ]
       },
       "/workspaces/TKT21003/ratebeer/app/controllers/beer_clubs_controller.rb": {
         "lines": [
@@ -372,24 +422,6 @@
           0,
           null,
           null,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
-      },
-      "/workspaces/TKT21003/ratebeer/app/controllers/places_controller.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
           0,
           0,
           0,
@@ -772,6 +804,6 @@
         "branches": {}
       }
     },
-    "timestamp": 1747388772
+    "timestamp": 1747390100
   }
 }

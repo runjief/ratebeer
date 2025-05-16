@@ -10,16 +10,24 @@
 <% if @places %>
   <table>
     <thead>
-      <% Place.rendered_fields.each do |field| %>
-        <th><%= field %></th>
-      <% end %>
-    </thead>
-    <% @places.each do |place| %>
       <tr>
         <% Place.rendered_fields.each do |field| %>
-          <td><%= place.send(field) %></td>
+          <th><%= field %></th>
         <% end %>
       </tr>
-    <% end %>
+    </thead>
+    <tbody>
+      <% @places.each do |place| %>
+        <tr>
+          <% Place.rendered_fields.each do |field| %>
+            <% if field == :name %>
+              <td><%= link_to place.name, place_path(place.id) %></td>
+            <% else %>
+              <td><%= place.send(field) %></td>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 <% end %>

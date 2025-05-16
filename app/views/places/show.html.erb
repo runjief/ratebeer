@@ -1,0 +1,26 @@
+<h2><%= @place.name %></h2>
+
+<p>
+  <strong>Status:</strong> <%= @place.status %>
+</p>
+
+<p>
+  <strong>Address:</strong><br>
+  <%= @place.street %><br>
+  <%= @place.zip %> <%= @place.city %><br>
+  <%= @place.country %>
+</p>
+
+<% if @place.phone.present? %>
+<p>
+  <strong>Phone:</strong> <%= @place.phone %>
+</p>
+<% end %>
+
+<% if @place.overall.present? && @place.overall.to_f > 0 %>
+<p>
+  <strong>Rating:</strong> <%= @place.overall %>
+</p>
+<% end %>
+
+<%= link_to "Back to list", places_path %>

@@ -40,4 +40,20 @@ describe "Places" do
 
     expect(page).to have_content "No locations in nowhere"
   end
+  it "allows clicking on a place name to view details" do
+    canned_answer = <<-END_OF_STRING
+<?xml version='1.0' encoding='utf-8' ?><bmp_locations><location><id>12411</id><name>Gallows Bird</name><status>Brewery</status><reviewlink>https://beermapping.com/location/12411</reviewlink><proxylink>http://beermapping.com/maps/proxymaps.php?locid=12411&amp;d=5</proxylink><blogmap>http://beermapping.com/maps/blogproxy.php?locid=12411&amp;d=1&amp;type=norm</blogmap><street>Merituulentie 30</street><city>Espoo</city><state></state><zip>02200</zip><country>Finland</country><phone>+358 9 412 3253</phone><overall>91.66665</overall><imagecount>0</imagecount></location></bmp_locations>
+    END_OF_STRING
+
+    stub_request(:get, /.*espoo/).to_return(body: canned_answer, headers: { 'Content-Type' => "text/xml" })
+
+    visit places_path
+    fill_in('city', with: 'espoo')
+    click_button "Search"
+
+    click_link "Gallows Bird"
+    expect(page).to have_content "Gallows Bird"
+    expect(page).to have_content "Merituulentie 30"
+    expect(page).to have_content "Brewery"
+  end
 end
