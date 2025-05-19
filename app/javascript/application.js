@@ -1,10 +1,9 @@
 
-//= require jquery3
-//= require popper
-//= require bootstrap-sprockets
+import {beers} from "./custom/utils.js"
 
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
+beers()
+
+
 import "@hotwired/turbo-rails"
-import "@popperjs/core"
-import "bootstrap"
 import "controllers"
+import "bootstrap"

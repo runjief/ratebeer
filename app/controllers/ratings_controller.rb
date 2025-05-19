@@ -17,6 +17,12 @@ class RatingsController < ApplicationController
     @top_breweries = Brewery.top(3)
     @top_styles = Style.top(3)
     @most_active_users = User.most_active(3)
+
+    respond_to do |format|
+      format.html { } # render default template
+      format.json { render json: @ratings }
+    end
+
   end
   def new
     @rating = Rating.new
