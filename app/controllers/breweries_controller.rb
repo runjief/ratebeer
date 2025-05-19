@@ -6,6 +6,18 @@ class BreweriesController < ApplicationController
   def index
     @active_breweries = Brewery.active
     @retired_breweries = Brewery.retired
+    
+    all_breweries = Brewery.all
+    order = params[:order] || 'name'
+    
+    sorted_breweries = case order
+                      when "name" then all_breweries.sort_by(&:name)
+                      when "year" then all_breweries.sort_by(&:year)
+                      else all_breweries.sort_by(&:name)
+                      end
+    
+    @active_breweries = sorted_breweries.select(&:active)
+    @retired_breweries = sorted_breweries.reject(&:active)
   end
 
   # GET /breweries/1 or /breweries/1.json
