@@ -2,10 +2,14 @@ module RatingAverage
   extend ActiveSupport::Concern
 
   def average_rating
-    # Count and save based on the fetched ratings objects (associated to a beer)
-    rating_count = ratings.size
-    
-    return 0 if rating_count == 0
-    ratings.map{ |r| r.score }.sum / rating_count
+    return 0 if ratings.empty?
+    ratings.average(:score).to_f.round(1)
+  end
+
+  class_methods do
+    def top(how_many)
+      sorted_by_rating_in_desc_order = all.sort_by{ |b| -(b.average_rating || 0) }
+      sorted_by_rating_in_desc_order[0, how_many]
+    end
   end
 end

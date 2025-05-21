@@ -22,14 +22,11 @@ class Brewery < ApplicationRecord
     puts "changed year to #{year}"
   end
 
-  def self.top(n)
-    sorted_by_rating = Brewery.all.sort_by{ |b| -(b.average_rating || 0) }
-    sorted_by_rating.take(n)
-  end
-  def average_rating
-    return 0 if ratings.empty?
-    ratings.map(&:score).sum / ratings.size.to_f
-  end
+  # def self.top(n)
+  #   sorted_by_rating = Brewery.all.sort_by{ |b| -(b.average_rating || 0) }
+  #   sorted_by_rating.take(n)
+  # end
+
   def beer_count
     beers.count
   end
