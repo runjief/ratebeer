@@ -1,7 +1,7 @@
 <p style="color: green"><%= notice %></p>
-
-<%= render @brewery %>
-
+<% cache @brewery do %>
+  <%= render @brewery %>
+<% end %>
 <div>
   <% if @brewery.ratings.empty? %>
     <p>Brewery has no ratings!</p>

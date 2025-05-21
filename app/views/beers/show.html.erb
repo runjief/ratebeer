@@ -1,14 +1,14 @@
 <p style="color: green"><%= notice %></p>
-
-<%= render @beer %>
-<div>
-  <% if @beer.ratings.empty? %>
-    <p>Beer has not yet been rated!</p>
-  <% else %>
-    <p>Beer has  <%= pluralize(@beer.ratings.count, 'rating') %>, with an average of <%= round(@beer.average_rating) %></p>
-  <% end %>
-</div>
-
+<% cache @beer do %>
+  <%= render @beer %>
+  <div>
+    <% if @beer.ratings.empty? %>
+      <p>Beer has not yet been rated!</p>
+    <% else %>
+      <p>Beer has  <%= pluralize(@beer.ratings.count, 'rating') %>, with an average of <%= round(@beer.average_rating) %></p>
+    <% end %>
+  </div>
+<% end %>
 <% if current_user %>
 
   <h4>give a rating:</h4>
