@@ -6,16 +6,15 @@ class BeersController < ApplicationController
   before_action :ensure_that_admin, only: [:destroy]
   # GET /beers or /beers.json
   def index
-    @beers = Beer.all
+    @beers = Beer.includes(:brewery, :style, :ratings).all
 
     order = params[:order] || 'name'
 
     @beers = case order
-            when "name" then @beers.sort_by(&:name)
-            when "brewery" then @beers.sort_by { |b| b.brewery.name }
-            when "style" then @beers.sort_by { |b| b.style.name }
-            when "rating" then @beers.sort_by(&:average_rating).reverse
-            end
+              when 'name' then @beers.sort_by(&:name)
+              when 'brewery' then @beers.sort_by{ |b| b.brewery.name }
+              when 'style' then @beers.sort_by{ |b| b.style.name }
+              end
   end
   def list
   end

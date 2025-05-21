@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :ensure_that_admin, only: [:toggle_frozen]
   # GET /users or /users.json
   def index
-    @users = User.all
+    @users = User.includes(:ratings).all
   end
 
   # GET /users/1 or /users/1.json
