@@ -1,5 +1,5 @@
 class MembershipsController < ApplicationController
-  before_action :set_membership, only: %i[ show edit update ]
+  before_action :set_membership, only: [:show, :edit, :update, :destroy, :confirm]
   before_action :ensure_current_user, only: [ :new, :create ]
   before_action :ensure_that_signed_in, except: [:index, :show]
   # GET /memberships or /memberships.json
@@ -26,13 +26,12 @@ class MembershipsController < ApplicationController
   def create
     @membership = Membership.new(membership_params)
     @membership.user = current_user
-
+    @membership.confirmed = false
     respond_to do |format|
       if @membership.save
-        format.html { redirect_to beer_club_url(@membership.beer_club), notice: "#{current_user.username} welcome to the club!" }
+        format.html { redirect_to beer_club_url(@membership.beer_club_id), notice: "Your application for membership is pending confirmation." }
         format.json { render :show, status: :created, location: @membership }
       else
-        @beer_clubs = BeerClub.all - current_user.beer_clubs
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @membership.errors, status: :unprocessable_entity }
       end
@@ -68,7 +67,14 @@ class MembershipsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  def confirm
+    if @membership.beer_club.confirmed_members.include?(current_user)
+      @membership.confirm!
+      redirect_to @membership.beer_club, notice: "Membership confirmed!"
+    else
+      redirect_to @membership.beer_club, notice: "Only members can confirm applications"
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_membership
@@ -82,4 +88,12 @@ class MembershipsController < ApplicationController
     def ensure_current_user
       redirect_to signin_path, notice: 'you should be signed in' if current_user.nil?
     end
+
+      def set_membership
+        @membership = Membership.find(params[:id])
+      end
+
+      def set_beer_clubs
+        @beer_clubs = BeerClub.all
+      end
 end

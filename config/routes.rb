@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   resources :memberships, only: [:new, :create, :destroy]
   resources :styles
   delete 'memberships', to: 'memberships#destroy'
+  resources :memberships do
+    post 'confirm', on: :member
+  end
   resources :beer_clubs
   root "breweries#index"
   get 'brewerylist', to: 'breweries#list'

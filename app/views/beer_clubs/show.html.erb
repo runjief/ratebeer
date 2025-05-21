@@ -13,34 +13,48 @@
 </p>
 
 <h4>Members</h4>
-<% if @beer_club.users.empty? %>
+<% if @beer_club.confirmed_members.empty? %>
   <p>No members</p>
 <% else %>
   <ul>
-    <% @beer_club.users.each do |user| %>
+    <% @beer_club.confirmed_members.each do |user| %>
       <li><%= link_to user.username, user %></li>
     <% end %>
   </ul>
 <% end %>
 
-<% if current_user && @beer_club.members.include?(current_user) %>
-  <%= form_with(url: memberships_path, method: :delete) do |form| %>
-    <%= form.hidden_field :beer_club_id, value: @beer_club.id %>
-    <%= form.hidden_field :user_id, value: current_user.id %>
-    <%= form.submit "Leave the club" %>
+<% if current_user && @beer_club.confirmed_members.include?(current_user) %>
+  <% if @beer_club.pending_memberships.any? %>
+    <h4>Membership applications</h4>
+    <ul>
+      <% @beer_club.pending_memberships.each do |membership| %>
+        <li>
+          <%= link_to membership.user.username, membership.user %>
+          <%= button_to "Confirm", confirm_membership_path(membership), method: :post, class: "btn btn-primary btn-sm" %>
+        </li>
+      <% end %>
+    </ul>
   <% end %>
+
+  <div class="mt-3">
+    <% membership = current_user.memberships.find_by(beer_club_id: @beer_club.id) %>
+    <%= button_to "Leave the club", membership, method: :delete, class: "btn btn-danger" %>
+  </div>
 <% elsif current_user %>
-  <%= form_with(model: @membership) do |form| %>
-    <%= form.hidden_field :beer_club_id, value: @beer_club.id %>
-    <%= form.hidden_field :user_id, value: current_user.id %>
-    <%= form.submit "Join the beer club" %>
+  <% membership = current_user.memberships.find_by(beer_club_id: @beer_club.id) %>
+  <% if membership && !membership.confirmed? %>
+    <p>Your membership application is pending confirmation.</p>
+  <% else %>
+    <%= form_with(model: @membership) do |form| %>
+      <%= form.hidden_field :beer_club_id, value: @beer_club.id %>
+      <%= form.submit "Join the beer club", class: "btn btn-primary" %>
+    <% end %>
   <% end %>
 <% end %>
 
 <div>
 <% if current_user %>
   <%= link_to "Edit this beer club", edit_beer_club_path(@beer_club) %> |
-
 
   <%= button_to "Destroy this beer club", @beer_club, method: :delete %>
 </div>
