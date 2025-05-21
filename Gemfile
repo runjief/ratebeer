@@ -58,6 +58,8 @@ group :development, :test do
   gem "simplecov", require: false
 
   gem 'dotenv-rails'
+
+  gem 'cuprite', require: 'capybara/cuprite'
 end
 
 group :development do
