@@ -14,10 +14,18 @@ class RatingsController < ApplicationController
   def index
     @ratings = Rating.all
     @recent_ratings = Rating.recent
-    @top_beers = Beer.top(3)
-    @top_breweries = Brewery.top(3)
-    @top_styles = Style.top(3)
-    @most_active_users = User.most_active(3)
+    @top_beers = Rails.cache.fetch("beer_top_3", expires_in: 10.minutes) do
+      Beer.top(3)
+    end
+    @top_breweries = Rails.cache.fetch("brewery_top_3", expires_in: 10.minutes) do
+      Brewery.top(3)
+    end
+    @top_styles = Rails.cache.fetch("style_top_3", expires_in: 10.minutes) do
+      Style.top(3)
+    end
+    @most_active_users = Rails.cache.fetch("user_top_3", expires_in: 10.minutes) do
+      User.most_active(3)
+    end
 
     respond_to do |format|
       format.html { } # render default template
