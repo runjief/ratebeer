@@ -1,38 +1,37 @@
 <h1>Beers</h1>
-
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th><%= link_to "Name", beers_path(order: "name")%></th>
-      <th><%= link_to "Style", beers_path(order: "style")%></th>
-      <th><%= link_to "Brewery", beers_path(order: "brewery")%></th>
-      <th><%= link_to "Rating", beers_path(order: "rating")%></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @beers.each do |beer| %>
+<% cache "beerlist-#{@order}", skip_digest: true do %>
+  <table class="table table-hover">
+    <thead>
       <tr>
-        <td><%= link_to beer.name, beer %></td>
-        <td><%= link_to beer.style.name, beer.style if beer.style %></td>
-        <td><%= link_to beer.brewery.name, beer.brewery %></td>
-        <td>
-          <% if beer.ratings.empty? %>
-            not rated yet!
-          <% else %>
-          <%= round(beer.average_rating ) %>
-          <% end %>
-        </td>
-        <% if current_user %>
-          <td><%= link_to 'Edit', edit_beer_path(beer), class: 'btn btn-primary btn-sm' %></td>
-          <td><%= button_to 'Destroy', beer, method: :delete, class: 'btn btn-danger btn-sm' %></td>
-        <% end %>
+        <th><%= link_to "Name", beers_path(order: "name")%></th>
+        <th><%= link_to "Style", beers_path(order: "style")%></th>
+        <th><%= link_to "Brewery", beers_path(order: "brewery")%></th>
+        <th><%= link_to "Rating", beers_path(order: "rating")%></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @beers.each do |beer| %>
+        <tr>
+          <td><%= link_to beer.name, beer %></td>
+          <td><%= link_to beer.style.name, beer.style if beer.style %></td>
+          <td><%= link_to beer.brewery.name, beer.brewery %></td>
+          <td>
+            <% if beer.ratings.empty? %>
+              not rated yet!
+            <% else %>
+            <%= round(beer.average_rating ) %>
+            <% end %>
+          </td>
+          <% if current_user %>
+            <td><%= link_to 'Edit', edit_beer_path(beer), class: 'btn btn-primary btn-sm' %></td>
+            <td><%= button_to 'Destroy', beer, method: :delete, class: 'btn btn-danger btn-sm' %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 <% if current_user %>
   <%= link_to 'New Beer', new_beer_path, class: 'btn btn-primary' %>
