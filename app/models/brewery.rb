@@ -26,4 +26,7 @@ class Brewery < ApplicationRecord
     sorted_by_rating = Brewery.all.sort_by{ |b| -(b.average_rating || 0) }
     sorted_by_rating.take(n)
   end
+  def beer_count
+    beers.count
+  end
 end

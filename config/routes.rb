@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   delete 'memberships', to: 'memberships#destroy'
   resources :beer_clubs
   root "breweries#index"
+  get 'brewerylist', to: 'breweries#list'
   get "all_beers", to: "beers#index"
   get "signup", to: "users#new", as: :signup
   get "signin", to: "sessions#new", as: "signin"

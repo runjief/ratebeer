@@ -1,6 +1,6 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: %i[ show edit update destroy ]
-  before_action :ensure_that_signed_in, except: [ :index, :show ]
+  before_action :ensure_that_signed_in, except: [ :index, :show, :list ]
   before_action :ensure_that_admin, only: [:destroy]
   # GET /breweries or /breweries.json
   def index
@@ -18,6 +18,13 @@ class BreweriesController < ApplicationController
     
     @active_breweries = sorted_breweries.select(&:active)
     @retired_breweries = sorted_breweries.reject(&:active)
+
+    @breweries = all_breweries
+  
+    respond_to do |format|
+      format.html 
+      format.json { render json: @breweries.as_json(methods: [:beer_count]) }
+    end
   end
 
   # GET /breweries/1 or /breweries/1.json
