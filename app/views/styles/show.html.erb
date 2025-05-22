@@ -1,21 +1,122 @@
-<div class="style-header">
-   <b>Name: </b><%= @style.name %>
+<div class="container">
+
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card border-0 bg-light">
+        <div class="card-body">
+          <h1 class="display-5 mb-3">
+            <i class="fas fa-tag text-primary me-2"></i>
+            <%= @style.name %>
+          </h1>
+          <div class="style-description">
+            <h5 class="text-muted mb-2">Description</h5>
+            <p class="lead"><%= @style.description %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <div class="card text-center h-100">
+        <div class="card-body">
+          <i class="fas fa-beer fa-2x text-warning mb-2"></i>
+          <h4 class="card-title"><%= @beers.count %></h4>
+          <p class="card-text text-muted">Total Beers</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-center h-100">
+        <div class="card-body">
+          <i class="fas fa-star fa-2x text-success mb-2"></i>
+          <h4 class="card-title">
+            <%= @style.average_rating > 0 ? number_with_precision(@style.average_rating, precision: 1) : "N/A" %>
+          </h4>
+          <p class="card-text text-muted">Average Rating</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-center h-100">
+        <div class="card-body">
+          <i class="fas fa-chart-bar fa-2x text-info mb-2"></i>
+          <h4 class="card-title"><%= @style.ratings.count %></h4>
+          <p class="card-text text-muted">Total Ratings</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">
+            <i class="fas fa-list me-2"></i>
+            Beers in this Style
+          </h4>
+        </div>
+        <div class="card-body">
+          <% if @beers.empty? %>
+            <div class="text-center py-4">
+              <i class="fas fa-beer fa-3x text-muted mb-3"></i>
+              <h5 class="text-muted">No beers found for this style</h5>
+              <p class="text-muted">Be the first to add a beer in this style!</p>
+            </div>
+          <% else %>
+            <div class="row">
+              <% @beers.each do |beer| %>
+                <div class="col-lg-6 mb-3">
+                  <div class="card h-100 border-light">
+                    <div class="card-body">
+                      <h6 class="card-title">
+                        <%= link_to beer.name, beer, class: "text-decoration-none" %>
+                      </h6>
+                      <p class="card-text">
+                        <small class="text-muted">
+                          by <%= link_to beer.brewery.name, beer.brewery, class: "text-decoration-none" %>
+                        </small>
+                      </p>
+                      <% if beer.ratings.any? %>
+                        <div class="d-flex align-items-center">
+                          <span class="badge bg-success me-2">
+                            <i class="fas fa-star"></i> <%= number_with_precision(beer.average_rating, precision: 1) %>
+                          </span>
+                          <small class="text-muted">
+                            <%= pluralize(beer.ratings.count, 'rating') %>
+                          </small>
+                        </div>
+                      <% else %>
+                        <span class="badge bg-secondary">Not rated yet</span>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <%= link_to "← Back to Styles", styles_path, class: "btn btn-outline-secondary" %>
+        
+        <% if current_user && current_user.admin %>
+          <div>
+            <%= link_to "Edit Style", edit_style_path(@style), class: "btn btn-primary me-2" %>
+            <%= button_to "Delete Style", @style, method: :delete, 
+                class: "btn btn-danger", 
+                data: { confirm: "Are you sure you want to delete this style? This action cannot be undone." } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
-
-<div class="style-description">
-  <b>Description: </b><%= @style.description %>
-</div>
-
-<h4>Beers: </h2>
-
-<% if @beers.empty? %>
-  <p>No beers found for this style.</p>
-<% else %>
-  <ul>
-    <% @beers.each do |beer| %>
-      <li><%= link_to beer.name, beer %> by <%= link_to beer.brewery.name, beer.brewery %></li>
-    <% end %>
-  </ul>
-<% end %>
-
-<%= link_to "Back to styles", styles_path %>

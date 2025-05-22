@@ -1,11 +1,50 @@
-<h1>Beer Styles</h1>
+<div class="styles-header mb-4">
+  <h1 class="display-4 text-center mb-3">Beer Styles</h1>
+  <p class="lead text-center text-muted">Discover the diverse world of beer styles and their unique characteristics</p>
+</div>
 
-<div id="styles">
+<div class="row" id="styles">
   <% @styles.each do |style| %>
-    <div class="style-card">
-      <h2><%= link_to style.name, style %></h2>
-      <p><%= truncate(style.description, length: 150) %></p>
-      # <%= edit_and_destroy_buttons(style) %>
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100 shadow-sm style-card">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">
+            <%= link_to style.name, style, class: "text-decoration-none stretched-link" %>
+          </h5>
+          <p class="card-text text-muted flex-grow-1">
+            <%= truncate(style.description, length: 120) %>
+          </p>
+          <div class="card-footer bg-transparent border-0 p-0 mt-3">
+            <small class="text-muted">
+              <i class="fas fa-beer"></i> 
+              <%= pluralize(style.beers.count, 'beer') %>
+            </small>
+            <% if current_user && current_user.admin %>
+              <div class="float-end">
+                <%= link_to "Edit", edit_style_path(style), class: "btn btn-outline-primary btn-sm me-1" %>
+                <%= button_to "Delete", style, method: :delete, 
+                    class: "btn btn-outline-danger btn-sm", 
+                    form: { style: "display:inline-block;" },
+                    data: { confirm: "Are you sure?" } %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
+</div>
+
+<% if @styles.empty? %>
+  <div class="text-center py-5">
+    <div class="mb-4">
+      <i class="fas fa-beer fa-4x text-muted"></i>
+    </div>
+    <h3 class="text-muted">No styles found</h3>
+    <p class="text-muted">Be the first to add a beer style!</p>
+  </div>
+<% end %>
+
+<div class="text-center mt-4">
+  <%= link_to "Add New Style", new_style_path, class: "btn btn-primary btn-lg" if current_user && current_user.admin %>
 </div>

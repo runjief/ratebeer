@@ -23,12 +23,14 @@
             <td><%= brewery.year %></td>
             <td><%= brewery.beers.count %></td>
             <td><%= round(brewery.average_rating) %></td>
-            <td>
-              <% if current_user %>
+            <% if current_user %>
+              <td style="display: flex; gap: 5px;">
                 <%= link_to "Edit", edit_brewery_path(brewery), class: "btn btn-primary btn-sm" %>
-                <%= button_to "Destroy", brewery, method: :delete, class: "btn btn-danger btn-sm" %>
-              <% end %>
-            </td>
+                <%= button_to "Destroy", brewery, method: :delete, class: "btn btn-danger btn-sm", form: { style: "display:inline-block;" } %>
+              </td>
+            <% else %>
+              <td></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
@@ -59,12 +61,14 @@
             <td><%= brewery.year %></td>
             <td><%= brewery.beers.count %></td>
             <td><%= round(brewery.average_rating) %></td>
-            <td>
-              <% if current_user %>
+            <% if current_user %>
+              <td style="display: flex; gap: 5px;">
                 <%= link_to "Edit", edit_brewery_path(brewery), class: "btn btn-primary btn-sm" %>
-                <%= button_to "Destroy", brewery, method: :delete, class: "btn btn-danger btn-sm" %>
-              <% end %>
-            </td>
+                <%= button_to "Destroy", brewery, method: :delete, class: "btn btn-danger btn-sm", form: { style: "display:inline-block;" } %>
+              </td>
+            <% else %>
+              <td></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
